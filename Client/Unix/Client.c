@@ -88,13 +88,18 @@ void* toward(void* param)
 {
 	int tcpSocket = *(int*)param;
 	char sendBuff[BUFFER_S];
-	int status, i;
+	int status, i, len;
 
 	printf("Enter a message to send to server. Type '/help' for a list of commands.\n");
 
 	while (strcmp(sendBuff, "/close\n") != 0 && strcmp(sendBuff, "/kill\n") != 0 && condition != -1)
 	{
 		fgets(sendBuff, BUFFER_S, stdin);
+		len = strlen(sendBuff);
+		
+		//don't send empty strings
+		if(len < 2)
+		{continue;}
 
 		for (i = 0; i < 3; i++)
 		{
